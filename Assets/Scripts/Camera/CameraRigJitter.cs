@@ -1,32 +1,25 @@
 using UnityEngine;
 
-public class CameraRig : GMSubscribe
+public class CameraRigJ : GMSubscribe
 {
     public float moveSpeed = 5f; // Speed of camera movement
-    public float rotationSpeed = .8f; // Speed of camera rotation
-    public float rotationSmoothing = 50f; // Smoothing factor for camera rotation
+    public float rotationSpeed = 2f; // Speed of camera rotation
 
     private Vector3 lastMousePosition;
-    private Vector3 previousMovement;
-    private Quaternion targetRotation;
 
     public bool freeCam;
 
-    void Awake()
-    {
+    void Awake(){
         Subscribe();
-        targetRotation = transform.rotation; // Initialize targetRotation with current rotation
     }
 
-    void OnDestroy()
-    {
+    void OnDestroy(){
         UnSubscribe();
     }
 
     void Update()
-    {
-        if (freeCam)
-        {
+    {   
+        if(freeCam){
             // Get input from WASD keys
             float horizontalInput = Input.GetAxis("Horizontal");
             float verticalInput = Input.GetAxis("Vertical");
@@ -45,8 +38,8 @@ public class CameraRig : GMSubscribe
                 float rotationX = -deltaMouse.y * rotationSpeed;
                 float rotationY = deltaMouse.x * rotationSpeed;
 
-                targetRotation *= Quaternion.Euler(rotationX, rotationY, 0f);
-                targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, 0f);
+                transform.Rotate(Vector3.up, rotationY, Space.World);
+                transform.Rotate(Vector3.right, rotationX, Space.Self);
             }
 
             // Check for camera vertical movement (up and down)
@@ -63,24 +56,18 @@ public class CameraRig : GMSubscribe
             // Calculate the movement direction relative to the ground
             Vector3 forwardMovement = Vector3.ProjectOnPlane(transform.forward, Vector3.up).normalized * verticalInput;
             Vector3 rightMovement = Vector3.ProjectOnPlane(transform.right, Vector3.up).normalized * horizontalInput;
-
-            // Smoothly interpolate between previous and current movement
-            Vector3 movement = Vector3.Lerp(previousMovement, forwardMovement + rightMovement, 0.5f).normalized * moveSpeed * Time.deltaTime;
-            previousMovement = forwardMovement + rightMovement;
+            Vector3 movement = (forwardMovement + rightMovement).normalized * moveSpeed * Time.deltaTime;
 
             // Apply movement to the camera's position
             transform.Translate(movement, Space.World);
 
             // Apply vertical movement to the camera's position
             transform.Translate(Vector3.up * verticalMovement * moveSpeed * Time.deltaTime, Space.World);
-
-            // Smoothly rotate the camera towards the target rotation
-            transform.rotation = Quaternion.Slerp(transform.rotation, targetRotation, rotationSmoothing * Time.deltaTime);
         }
     }
 
-    public override void GameManagerOnGameStateChanged(GameManager.GameState state)
-    {
+    public override void GameManagerOnGameStateChanged(GameManager.GameState state){
         freeCam = (state == GameManager.GameState.FreeCam);
     }
+
 }

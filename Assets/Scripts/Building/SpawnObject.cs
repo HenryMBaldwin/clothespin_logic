@@ -21,6 +21,7 @@ public class SpawnObject : GMSubscribe
             if (Physics.Raycast(ray, out RaycastHit hit))
             {
                 Vector3 spawnPosition = hit.point;
+                spawnPosition.y = 1;
                 Instantiate(pinPrefab, spawnPosition, Quaternion.identity);
             }
         }

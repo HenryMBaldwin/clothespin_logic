@@ -168,6 +168,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: 2
+  freeCamButton: {fileID: 0}
 --- !u!1 &310692349
 GameObject:
   m_ObjectHideFlags: 0
@@ -693,11 +694,13 @@ MonoBehaviour:
   m_GameObject: {fileID: 963194225}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b71939d41631847828a47e458ae33293, type: 3}
+  m_Script: {fileID: 11500000, guid: 122c1d60e309645f99326f7b68d02217, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   moveSpeed: 5
-  rotationSpeed: 2
+  rotationSpeed: 0.8
+  rotationSmoothing: 50
+  freeCam: 0
 --- !u!1 &1078213837
 GameObject:
   m_ObjectHideFlags: 0
@@ -789,7 +792,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1078213837}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -3.329506, y: -1.5765405, z: -1.0275073}
+  m_LocalPosition: {x: -3.329506, y: 0, z: -1.0275073}
   m_LocalScale: {x: 1000, y: 1, z: 1000}
   m_ConstrainProportionsScale: 0
   m_Children: []
@@ -810,7 +813,7 @@ GameObject:
   - component: {fileID: 1693690652}
   - component: {fileID: 1693690655}
   m_Layer: 5
-  m_Name: FreeCam
+  m_Name: Free Cam
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1000,15 +1003,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 252671979374882162, guid: 65f94b7d819794e949f529996000e590, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -0.14
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 252671979374882162, guid: 65f94b7d819794e949f529996000e590, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.22
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 252671979374882162, guid: 65f94b7d819794e949f529996000e590, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.040930748
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 252671979374882162, guid: 65f94b7d819794e949f529996000e590, type: 3}
       propertyPath: m_LocalRotation.w

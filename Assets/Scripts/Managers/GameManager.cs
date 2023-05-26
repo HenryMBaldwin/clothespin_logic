@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class GameManager : MonoBehaviour
 {
@@ -12,6 +13,9 @@ public class GameManager : MonoBehaviour
     public static event Action<GameState> OnGameStateChanged;
 
     public static GameManager Instance{get{return _Instance;}}
+
+    public Button freeCamButton;
+
     void Awake(){
         _Instance = this;
     }
@@ -24,7 +28,15 @@ public class GameManager : MonoBehaviour
     }
     
     void Start(){
+        freeCamButton = GameObject.Find("Free Cam").GetComponent<Button>();
         UpdateGameState(GameState.Build);
+    }
+
+    void Update(){
+        //listen for key shortcuts
+        if(Input.GetKeyDown(KeyCode.F) && (this.State == GameState.Build || this.State == GameState.FreeCam)){
+            freeCamButton.onClick.Invoke();
+        }
     }
     public void UpdateGameState(GameState newState){
         State = newState;
