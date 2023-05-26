@@ -17,4 +17,3 @@ public class GMSubscribe : MonoBehaviour
 
     public virtual void GameManagerOnGameStateChanged(GameManager.GameState state){}
 }
-
