@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class FreeCamButton : MonoBehaviour
+public class FreeCamButton : BuildMenuButton
 {
     private Button button;
     private bool isToggled;
@@ -20,15 +20,16 @@ public class FreeCamButton : MonoBehaviour
         // Perform additional actions when the button is toggled
         if (isToggled)
         {
-            // Button is toggled on
-            // Perform actions related to enabling free camera mode
+            GameManager.Instance.UpdateGameState(GameManager.GameState.FreeCam);
         }
         else
         {
-            // Button is toggled off
-            // Perform actions related to disabling free camera mode
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Build);
         }
     }
+
+    //Override because this button shouldn't dissapear in FreeCam
+    public override void GameManagerOnGameStateChanged(GameManager.GameState state){}
 
     void UpdateButtonColor()
     {
