@@ -12,6 +12,9 @@ public class CameraRig : GMSubscribe
 
     public bool freeCam;
 
+    private float minVerticalRotation = 0f; // Minimum vertical rotation angle (horizon)
+    private float maxVerticalRotation = 90f; // Maximum vertical rotation angle (straight down)
+
     void Awake()
     {
         Subscribe();
@@ -45,8 +48,10 @@ public class CameraRig : GMSubscribe
                 float rotationX = -deltaMouse.y * rotationSpeed;
                 float rotationY = deltaMouse.x * rotationSpeed;
 
-                targetRotation *= Quaternion.Euler(rotationX, rotationY, 0f);
-                targetRotation = Quaternion.Euler(targetRotation.eulerAngles.x, targetRotation.eulerAngles.y, 0f);
+                float currentRotationX = targetRotation.eulerAngles.x;
+                float clampedRotationX = Mathf.Clamp(currentRotationX + rotationX, minVerticalRotation, maxVerticalRotation);
+
+                targetRotation = Quaternion.Euler(clampedRotationX, targetRotation.eulerAngles.y + rotationY, 0f);
             }
 
             // Check for camera vertical movement (up and down)
