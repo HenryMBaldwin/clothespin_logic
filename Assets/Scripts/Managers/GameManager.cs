@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
 
     //Components to link in editor
     public Button freeCamButton;
+    public GameObject spawnObject;
 
     void Awake(){
         _Instance = this;
@@ -49,6 +50,7 @@ public class GameManager : MonoBehaviour
             case GameState.FreeCam:
                 break;
             case GameState.Build:
+                HandleBuild();
                 break;
             case GameState.Building:
                 break;
@@ -59,5 +61,10 @@ public class GameManager : MonoBehaviour
         }
 
         OnGameStateChanged?.Invoke(newState);
+    }
+
+    private void HandleBuild()
+    {
+        (spawnObject.GetComponent<SpawnObject>()).SetPrefab(null, null);
     }
 }

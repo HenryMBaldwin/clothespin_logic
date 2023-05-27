@@ -45,12 +45,12 @@ public class BuildMenuButton : GMSubscribe, IPointerEnterHandler, IPointerExitHa
         // Perform additional actions when the button is toggled
         if (isToggled)
         {
-            GameManager.Instance.UpdateGameState(GameManager.GameState.Building);
+            prev = GameManager.GameState.Building;
             (spawnObject.GetComponent<SpawnObject>()).SetPrefab(prefab,blueprint);
         }
         else
         {
-            GameManager.Instance.UpdateGameState(GameManager.GameState.Build);
+            prev = GameManager.GameState.Build;
             (spawnObject.GetComponent<SpawnObject>()).SetPrefab(null, null);
         }
     }
@@ -74,13 +74,13 @@ public class BuildMenuButton : GMSubscribe, IPointerEnterHandler, IPointerExitHa
     }
     public void OnPointerExit(PointerEventData eventData)
     {
+        if(prev == GameManager.GameState.Building)
+        {
+            (spawnObject.GetComponent<SpawnObject>()).SetPrefab(prefab, blueprint);
+        }
         GameManager.Instance.UpdateGameState(prev);
     }
 
-    //Supplies default menu button behavior
-    public override void GameManagerOnGameStateChanged(GameManager.GameState state)
-    {
-        prev = state;
-    }
+    
     
 }

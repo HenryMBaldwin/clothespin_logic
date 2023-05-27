@@ -169,6 +169,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   State: 2
   freeCamButton: {fileID: 1693690652}
+  spawnObject: {fileID: 1935052477}
 --- !u!1 &310692349
 GameObject:
   m_ObjectHideFlags: 0
@@ -756,7 +757,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Navigation:
-    m_Mode: 3
+    m_Mode: 0
     m_WrapAround: 0
     m_SelectOnUp: {fileID: 0}
     m_SelectOnDown: {fileID: 0}
@@ -1285,60 +1286,3 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   currentPrefab: {fileID: 0}
   currentBlueprint: {fileID: 0}
---- !u!1001 &8159134811804499899
-PrefabInstance:
-  m_ObjectHideFlags: 0
-  serializedVersion: 2
-  m_Modification:
-    m_TransformParent: {fileID: 0}
-    m_Modifications:
-    - target: {fileID: 5015641549909211, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_Name
-      value: Clothespin
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_RootOrder
-      value: 7
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalPosition.x
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalPosition.y
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalPosition.z
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalRotation.w
-      value: 1
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalRotation.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalRotation.y
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalRotation.z
-      value: -0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.x
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.y
-      value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 817967517499094625, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
-      propertyPath: m_LocalEulerAnglesHint.z
-      value: 0
-      objectReference: {fileID: 0}
-    m_RemovedComponents: []
-  m_SourcePrefab: {fileID: 100100000, guid: b182d5e8a28d7499aafe0c8b81dd9af7, type: 3}
