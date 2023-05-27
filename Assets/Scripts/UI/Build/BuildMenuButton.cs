@@ -55,6 +55,22 @@ public class BuildMenuButton : GMSubscribe, IPointerEnterHandler, IPointerExitHa
         }
     }
 
+    public void Shortcut()
+    {
+        isToggled = !isToggled;
+        UpdateButtonColor();
+        if (isToggled)
+        {
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Building);
+            (spawnObject.GetComponent<SpawnObject>()).SetPrefab(prefab, blueprint);
+        }
+        else
+        {
+            GameManager.Instance.UpdateGameState(GameManager.GameState.Build);
+            (spawnObject.GetComponent<SpawnObject>()).SetPrefab(null, null);
+        }
+    }
+
     void UpdateButtonColor()
     {
         ColorBlock colors = button.colors;

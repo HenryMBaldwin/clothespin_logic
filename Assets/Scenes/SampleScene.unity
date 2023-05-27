@@ -168,6 +168,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   State: 2
+  buildButtons:
+  - {fileID: 1056779817}
   freeCamButton: {fileID: 1693690652}
   spawnObject: {fileID: 1935052477}
 --- !u!1 &310692349

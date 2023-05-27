@@ -15,9 +15,9 @@ public class GameManager : MonoBehaviour
     public static GameManager Instance{get{return _Instance;}}
 
     //Components to link in editor
+    public GameObject[] buildButtons;
     public Button freeCamButton;
     public GameObject spawnObject;
-
     void Awake(){
         _Instance = this;
     }
@@ -37,8 +37,19 @@ public class GameManager : MonoBehaviour
 
     void Update(){
         //listen for key shortcuts
-        if(Input.GetKeyDown(KeyCode.F) && (this.State == GameState.Build || this.State == GameState.FreeCam)){
-            freeCamButton.onClick.Invoke();
+        if (Input.GetKeyDown(KeyCode.F)){
+            switch (State)
+            {
+                case GameState.FreeCam:
+                case GameState.Build:
+                    freeCamButton.onClick.Invoke();
+                    break;
+                case GameState.Building:
+                    //transition back to build before going into freecam, building cannot go directly to freecam
+                    UpdateGameState(GameState.Build);
+                    freeCamButton.onClick.Invoke();
+                    break;
+            }
         }
     }
     public void UpdateGameState(GameState newState){
@@ -65,6 +76,14 @@ public class GameManager : MonoBehaviour
 
     private void HandleBuild()
     {
+        //toggle off all build buttons
+        foreach(GameObject btn in buildButtons)
+        {
+            if ((btn.GetComponent<BuildMenuButton>()).getToggled())
+            {
+                btn.GetComponent<BuildMenuButton>().Shortcut();
+            }
+        }
         (spawnObject.GetComponent<SpawnObject>()).SetPrefab(null, null);
     }
 }
