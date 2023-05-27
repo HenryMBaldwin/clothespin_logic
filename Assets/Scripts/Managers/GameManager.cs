@@ -14,6 +14,7 @@ public class GameManager : MonoBehaviour
 
     public static GameManager Instance{get{return _Instance;}}
 
+    //Components to link in editor
     public Button freeCamButton;
 
     void Awake(){
@@ -24,12 +25,13 @@ public class GameManager : MonoBehaviour
         MainMenu,
         FreeCam,
         Build,
+        Building,
         Run
     }
     
-    void Start(){
-        freeCamButton = GameObject.Find("Free Cam").GetComponent<Button>();
-        UpdateGameState(GameState.Build);
+    void Start() {
+        //initial state set to freecam
+        UpdateGameState(GameState.FreeCam);
     }
 
     void Update(){
@@ -47,6 +49,8 @@ public class GameManager : MonoBehaviour
             case GameState.FreeCam:
                 break;
             case GameState.Build:
+                break;
+            case GameState.Building:
                 break;
             case GameState.Run:
                 break;

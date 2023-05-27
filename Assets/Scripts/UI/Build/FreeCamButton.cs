@@ -1,10 +1,22 @@
 using UnityEngine;
+using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-public class FreeCamButton : BuildMenuButton
+public class FreeCamButton : GMSubscribe
 {
     private Button button;
     private bool isToggled;
+    private GameManager.GameState prev;
+
+    void Awake()
+    {
+        Subscribe();
+    }
+
+    void OnDestroy()
+    {
+        UnSubscribe();
+    }
 
     void Start()
     {
@@ -28,9 +40,6 @@ public class FreeCamButton : BuildMenuButton
         }
     }
 
-    //Override because this button shouldn't dissapear in FreeCam
-    public override void GameManagerOnGameStateChanged(GameManager.GameState state){}
-
     void UpdateButtonColor()
     {
         ColorBlock colors = button.colors;
@@ -40,6 +49,21 @@ public class FreeCamButton : BuildMenuButton
         colors.selectedColor = colors.normalColor; // Set the selected color to white
         colors.disabledColor = colors.normalColor; // Set the disabled color to white
         button.colors = colors;
+    }
+
+    public void OnPointerEnter(PointerEventData eventData)
+    {
+        GameManager.Instance.UpdateGameState(GameManager.GameState.Build);
+    }
+    public void OnPointerExit(PointerEventData eventData)
+    {
+        GameManager.Instance.UpdateGameState(prev);
+    }
+
+    //Supplies default menu button behavior
+    public override void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
+        prev = state;
     }
 
 }
