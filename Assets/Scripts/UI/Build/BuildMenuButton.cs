@@ -86,6 +86,7 @@ public class BuildMenuButton : GMSubscribe, IPointerEnterHandler, IPointerExitHa
     //e.g. Don't wan't to place an object when toggling freecam.
     public void OnPointerEnter(PointerEventData eventData)
     {
+        prev = GameManager.Instance.State;
         GameManager.Instance.UpdateGameState(GameManager.GameState.Build);
     }
     public void OnPointerExit(PointerEventData eventData)
