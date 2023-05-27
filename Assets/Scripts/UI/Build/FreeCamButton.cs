@@ -21,11 +21,30 @@ public class FreeCamButton : GMSubscribe
     void Start()
     {
         button = GetComponent<Button>();
-        button.onClick.AddListener(ToggleButton);
+        button.onClick.AddListener(Click);
         isToggled = false;
     }
 
-    void ToggleButton()
+    void Click()
+    {
+        isToggled = !isToggled;
+        UpdateButtonColor();
+        // Perform additional actions when the button is toggled
+        if (isToggled)
+        {
+            prev = GameManager.GameState.FreeCam;
+        }
+        else
+        {
+            prev = GameManager.GameState.Build;
+        }
+    }
+
+    public bool GetToggled()
+    {
+        return isToggled;
+    }
+    public void Shortcut()
     {
         isToggled = !isToggled;
         UpdateButtonColor();
@@ -53,17 +72,12 @@ public class FreeCamButton : GMSubscribe
 
     public void OnPointerEnter(PointerEventData eventData)
     {
+        prev = GameManager.Instance.State;
         GameManager.Instance.UpdateGameState(GameManager.GameState.Build);
     }
     public void OnPointerExit(PointerEventData eventData)
     {
         GameManager.Instance.UpdateGameState(prev);
-    }
-
-    //Supplies default menu button behavior
-    public override void GameManagerOnGameStateChanged(GameManager.GameState state)
-    {
-        prev = state;
     }
 
 }

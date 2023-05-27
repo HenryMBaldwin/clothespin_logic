@@ -170,7 +170,7 @@ MonoBehaviour:
   State: 2
   buildButtons:
   - {fileID: 1056779817}
-  freeCamButton: {fileID: 1693690652}
+  freeCamButton: {fileID: 1693690650}
   spawnObject: {fileID: 1935052477}
 --- !u!1 &310692349
 GameObject:

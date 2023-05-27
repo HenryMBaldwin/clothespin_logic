@@ -6,22 +6,25 @@ public class SpawnObject : GMSubscribe
     public GameObject currentBlueprint;
     private bool Building;
     private Vector3 hidden;
-    void Awake(){
+    private Quaternion blueprintRotation = Quaternion.identity;
+
+    void Awake()
+    {
         Subscribe();
-        //values to hide blueprint
+        // Values to hide blueprint
         hidden.x = 0;
         hidden.y = -10;
         hidden.z = 0;
     }
 
-    void OnDestroy(){
+    void OnDestroy()
+    {
         UnSubscribe();
     }
 
-    
     public void SetPrefab(GameObject newPrefab, GameObject newBlueprint)
     {
-        //destroy old blupring
+        // Destroy old blueprint
         if (currentBlueprint)
         {
             Destroy(currentBlueprint);
@@ -29,11 +32,10 @@ public class SpawnObject : GMSubscribe
 
         currentPrefab = newPrefab;
         currentBlueprint = newBlueprint;
-        //instatiate currentBlueprint hidden under the floor for use in building (if not null)
-
+        // Instantiate currentBlueprint hidden under the floor for use in building (if not null)
         if (currentBlueprint)
         {
-           currentBlueprint = Instantiate(currentBlueprint, hidden, Quaternion.identity);
+            currentBlueprint = Instantiate(currentBlueprint, hidden, Quaternion.identity);
         }
     }
 
@@ -49,7 +51,22 @@ public class SpawnObject : GMSubscribe
                     Vector3 blueprintPosition = hit.point;
                     blueprintPosition.y = 1;
                     currentBlueprint.transform.position = blueprintPosition;
+                    currentBlueprint.transform.rotation = blueprintRotation;
                 }
+
+                if (Input.GetKey(KeyCode.R)) // "r" key pressed
+                {
+                    if (Input.GetKey(KeyCode.LeftShift))
+                    {
+                        blueprintRotation *= Quaternion.Euler(0, -0.5f, 0);
+                    }
+                    else
+                    {
+                        blueprintRotation *= Quaternion.Euler(0, 0.5f, 0);
+                    }
+                    currentBlueprint.transform.rotation = blueprintRotation;
+                }
+                
             }
 
             if (Input.GetMouseButtonDown(0)) // Left mouse button clicked
@@ -59,14 +76,14 @@ public class SpawnObject : GMSubscribe
                 {
                     Vector3 spawnPosition = hit.point;
                     spawnPosition.y = 1;
-                    Instantiate(currentPrefab, spawnPosition, Quaternion.identity);
+                    Instantiate(currentPrefab, spawnPosition, blueprintRotation);
                 }
             }
         }
     }
 
-
-    public override void GameManagerOnGameStateChanged(GameManager.GameState state){
+    public override void GameManagerOnGameStateChanged(GameManager.GameState state)
+    {
         Building = (state == GameManager.GameState.Building);
     }
 }

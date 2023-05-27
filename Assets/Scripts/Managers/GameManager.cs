@@ -16,10 +16,11 @@ public class GameManager : MonoBehaviour
 
     //Components to link in editor
     public GameObject[] buildButtons;
-    public Button freeCamButton;
+    public GameObject freeCamButton;
     public GameObject spawnObject;
     void Awake(){
         _Instance = this;
+        
     }
 
     public enum GameState{
@@ -31,8 +32,7 @@ public class GameManager : MonoBehaviour
     }
     
     void Start() {
-        //initial state set to freecam
-        UpdateGameState(GameState.FreeCam);
+        
     }
 
     void Update(){
@@ -42,12 +42,12 @@ public class GameManager : MonoBehaviour
             {
                 case GameState.FreeCam:
                 case GameState.Build:
-                    freeCamButton.onClick.Invoke();
+                    (freeCamButton.GetComponent<FreeCamButton>()).Shortcut();
                     break;
                 case GameState.Building:
                     //transition back to build before going into freecam, building cannot go directly to freecam
                     UpdateGameState(GameState.Build);
-                    freeCamButton.onClick.Invoke();
+                    (freeCamButton.GetComponent<FreeCamButton>()).Shortcut();
                     break;
             }
         }
@@ -59,6 +59,8 @@ public class GameManager : MonoBehaviour
             case GameState.MainMenu:
                 break;
             case GameState.FreeCam:
+                DisableBuildButtons();
+                HandleFreeCam();
                 break;
             case GameState.Build:
                 HandleBuild();
@@ -74,15 +76,32 @@ public class GameManager : MonoBehaviour
         OnGameStateChanged?.Invoke(newState);
     }
 
-    private void HandleBuild()
+    private void HandleFreeCam()
+    {
+        //ensure freecam is enable
+        if (!(freeCamButton.GetComponent<FreeCamButton>().GetToggled()))
+        {
+            (freeCamButton.GetComponent<FreeCamButton>()).Shortcut();
+        }
+    }
+
+    private void DisableBuildButtons()
     {
         //toggle off all build buttons
-        foreach(GameObject btn in buildButtons)
+        foreach (GameObject btn in buildButtons)
         {
             if ((btn.GetComponent<BuildMenuButton>()).getToggled())
             {
                 btn.GetComponent<BuildMenuButton>().Shortcut();
             }
+        }
+    }
+    private void HandleBuild()
+    {
+        //disable freecam button if enabled
+        if (freeCamButton.GetComponent<FreeCamButton>().GetToggled())
+        {
+            (freeCamButton.GetComponent<FreeCamButton>()).Shortcut();
         }
         (spawnObject.GetComponent<SpawnObject>()).SetPrefab(null, null);
     }

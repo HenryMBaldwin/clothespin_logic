@@ -86,6 +86,7 @@ public class CameraRig : GMSubscribe
 
     public override void GameManagerOnGameStateChanged(GameManager.GameState state)
     {
+        Debug.Log(state);
         freeCam = (state == GameManager.GameState.FreeCam);
     }
 }
